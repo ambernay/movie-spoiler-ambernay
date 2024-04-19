@@ -33,16 +33,17 @@ function App() {
                 },
             })
                 .then((res) => {
-                    // use if here
                     try {
                         const movieDataID = res.data.results[0].id;
                         setMovieID(movieDataID);
                         setTitle(res.data.results[0].title);
                     }
                     catch (err) {
-                        setMessage('No results, try another movie');
+                        // user input is invalid
+                        setMessage("We don't know that movieID, try another");
                     }
                 }).catch(() => {
+                    // api call for movie title search failed
                     setMessage('Failed to fetch movie');
                 });
         }
@@ -65,10 +66,11 @@ function App() {
                         const keywordNames = keywords.map(keyword => keyword.name);
                         setKeywords(keywordNames);
                     } else {
-                        // shows 'no results' when the movie exists but the keywords don't
-                        setMessage('No results, try another movie');
+                        // when the movie exists but the keywords don't
+                        setMessage("Sorry, we can't spoil that movie");
                     }
                 }).catch(() => {
+                    // api call for movie keywords failed
                     setMessage('Failed to fetch keywords');
                 });
         }
@@ -107,6 +109,7 @@ function App() {
                 setGifUrls(urls);
             }
             catch {
+                // api call for gifs failed
                 setMessage("Failed to fetch gifs");
             }
         };
